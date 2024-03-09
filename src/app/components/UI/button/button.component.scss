@@ -1,0 +1,41 @@
+@import "../../../../styles/constants";
+
+.button {
+    padding: 16px 22px;
+    cursor: pointer;
+    border: none;
+    border-radius: 37px;
+    font-size: 18px;
+    transition: background-color 0.3s ease-in-out;
+
+    &__primary {
+        color: #FFFFFF;
+        background-color: $primary;
+
+        &:hover {
+            background-color: $light-primary;
+        }
+
+        &:active {
+            background-color: $dark-primary;
+        }
+
+        &:disabled {
+            background-color: #D8DEE9;
+        }
+    }
+
+    &__basic {
+        color: $primary;
+        background-color: transparent;
+
+        &:hover {
+            background-color: $secondary-light-primary;
+        }
+
+        &:active {
+            background-color: $secondary-dark-primary;
+        }
+    }
+
+}
