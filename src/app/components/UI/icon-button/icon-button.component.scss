@@ -1,0 +1,31 @@
+@import "../../../../styles/constants";
+
+.icon-button {
+    padding: 8px;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    transition: background-color 0.3s ease-in-out;
+
+    color: $primary;
+    background-color: transparent;
+
+    &:hover {
+        background-color: $secondary-light-primary;
+    }
+
+    &:active {
+        background-color: $secondary-dark-primary;
+    }
+
+    &:disabled {
+        background-color: transparent;
+
+        svg path {
+            fill: #A8B0BF !important;
+        }
+    }
+}
+
+
