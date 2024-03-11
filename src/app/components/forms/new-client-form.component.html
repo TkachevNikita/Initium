@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="form">
     <h3 class="form__title">
-        Новый клиент
+        {{title}}
     </h3>
     <div class="form__group">
         <IInput formControlName="name" [ngClass]="form.controls['name'].touched && form.controls['name'].invalid ? 'warn' : ''" placeholder="Имя"/>
@@ -40,6 +40,6 @@
     </div>
     <div class="form__actions">
         <IButton (click)="cancelModal()">Отмена</IButton>
-        <IButton (click)="addClient()" [disabled]="form.invalid" variant="primary">Сохранить</IButton>
+        <IButton (click)="type === 'create' ? addClient() : editClient()" [disabled]="form.invalid" variant="primary">Сохранить</IButton>
     </div>
 </form>

@@ -6,6 +6,7 @@ import {BehaviorSubject} from "rxjs";
 import {IconButtonComponent} from "../icon-button/icon-button.component";
 import {ModalService} from "../../../services/modal.service";
 import {NewClientFormComponent} from "../../forms/new-client-form.component";
+import {ClientsService} from "../../../services/clients.service";
 
 @Component({
     selector: 'ITable',
@@ -20,10 +21,17 @@ import {NewClientFormComponent} from "../../forms/new-client-form.component";
 })
 export class TableComponent {
     @Input() public data$!: BehaviorSubject<ClientModel[]>;
+    constructor(private _modalService: ModalService, private _service: ClientsService) {  }
 
-    constructor(private _modalService: ModalService) { }
+    public openDeleteModal() {
+        this._service.deleteClients(this.data$.getValue().filter((client: ClientModel) => client.selected))
+    }
 
-    public openAddModal() {
-        this._modalService.openModal(NewClientFormComponent);
+    public openEditModal(client: ClientModel): void {
+        this._modalService.openModal(NewClientFormComponent, {title: 'Редактирование', type: 'edit', client: client});
+    }
+
+    public openAddModal(): void {
+        this._modalService.openModal(NewClientFormComponent, {title: 'Новый клиент', type: 'create'});
     }
 }

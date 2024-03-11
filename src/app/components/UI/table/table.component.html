@@ -1,7 +1,7 @@
 <div class="container">
     <div class="actions">
         <icon-button (click)="openAddModal()" type="add"></icon-button>
-        <icon-button type="delete"></icon-button>
+        <icon-button (click)="openDeleteModal()" type="delete"></icon-button>
     </div>
     <table class="table">
         <thead>
@@ -26,18 +26,18 @@
         <tbody>
         <tr class="table__item" *ngFor="let client of data$ | async">
             <td>
-                <ICheckbox></ICheckbox>
+                <ICheckbox (change)="client.selected = true" [checked]="client.selected!"></ICheckbox>
             </td>
-            <td class="start">
+            <td (click)="openEditModal(client)" class="start">
                 {{client.name}}
             </td>
-            <td class="start">
+            <td (click)="openEditModal(client)" class="start">
                 {{client.surname}}
             </td>
-            <td class="end">
+            <td (click)="openEditModal(client)" class="end">
                 {{client.email}}
             </td>
-            <td class="end">
+            <td (click)="openEditModal(client)" class="end">
                 {{client.phone}}
             </td>
         </tr>
