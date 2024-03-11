@@ -11,10 +11,9 @@ import {CommonModule} from "@angular/common";
     ]
 })
 export class ButtonComponent implements AfterViewInit {
-    @Input()
-    public variant!: string;
-    @ViewChild('buttonElement')
-    public buttonElement!: ElementRef;
+    @Input() public variant!: string;
+    @Input() public disabled!: boolean;
+    @ViewChild('buttonElement') public buttonElement!: ElementRef;
 
     public ngAfterViewInit() {
         switch (this.variant) {
