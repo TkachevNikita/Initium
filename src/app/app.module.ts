@@ -13,6 +13,7 @@ import {PortalModule} from "@angular/cdk/portal";
 import {NewClientFormComponent} from "./components/forms/new-client-form.component";
 import {InputComponent} from "./components/UI/input/input.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import {ReactiveFormsModule} from "@angular/forms";
         HttpClientModule,
         PortalModule,
         InputComponent,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        BrowserAnimationsModule
     ],
     providers: [
         ClientsService,
