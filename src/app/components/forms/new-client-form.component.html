@@ -1,0 +1,27 @@
+<form [formGroup]="form" class="form">
+    <h3 class="form__title">
+        Новый клиент
+    </h3>
+    <div class="form__group">
+        <IInput formControlName="name" placeholder="Имя"/>
+        <div class="form__error" *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['required']">
+            Это обязательное поле
+        </div>
+        <div class="form__error" *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['minlength']">
+            Минимальное количество символов: 2
+        </div>
+    </div>
+    <div class="form__group">
+        <IInput formControlName="surname" placeholder="Фамилия"/>
+    </div>
+    <div class="form__group">
+        <IInput formControlName="email" placeholder="E-mail"/>
+    </div>
+    <div class="form__group">
+        <IInput formControlName="phone" placeholder="Телефон"/>
+    </div>
+    <div class="form__actions">
+        <IButton (click)="cancelModal()">Отмена</IButton>
+        <IButton [disabled]="form.invalid" variant="primary">Сохранить</IButton>
+    </div>
+</form>

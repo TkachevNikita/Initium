@@ -1,0 +1,32 @@
+@import '../../../styles/constants';
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    &__group {
+        position: relative;
+    }
+}
+
+.form__title {
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.form__actions {
+    display: flex;
+    gap: 5px;
+    float: right;
+}
+
+.form__error {
+    position: absolute;
+    right: 0;
+    margin-top: 5px;
+    float: right;
+    font-size: 12px;
+    color: $warn;
+    font-weight: 400;
+}
