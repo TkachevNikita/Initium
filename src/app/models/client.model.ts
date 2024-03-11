@@ -5,11 +5,13 @@ export class ClientModel {
     public readonly surname: string;
     public readonly email: string;
     public readonly phone: string;
+    public selected?: boolean;
 
     constructor(client: IClient) {
         this.name = client.name;
         this.surname = client.surname;
         this.email = client.email;
         this.phone = client.phone;
+        this.selected = false;
     }
 }

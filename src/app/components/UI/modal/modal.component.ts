@@ -1,6 +1,14 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ComponentPortal} from "@angular/cdk/portal";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {Subject} from "rxjs";
+import {ClientModel} from "../../../models/client.model";
+
+export interface ModalData {
+    title: string;
+    type: string;
+    client?: ClientModel
+}
 
 @Component({
     selector: 'app-modal',
@@ -19,11 +27,16 @@ import {animate, style, transition, trigger} from "@angular/animations";
     ]
 })
 export class ModalComponent {
+    public data$: Subject<ModalData> = new Subject<ModalData>();
     @Input() contentPortal!: ComponentPortal<any>;
     @Output() close: EventEmitter<void> = new EventEmitter<void>();
 
     public setPortal(portal: ComponentPortal<any>) {
         this.contentPortal = portal;
+    }
+
+    public setData(data: ModalData): void {
+        this.data$.next(data);
     }
 
     public onClose() {

@@ -14,24 +14,63 @@ export class ClientsService implements OnDestroy {
     constructor(private _http: HttpClient) { }
 
     public addClient(client: ClientModel): void {
-        if (localStorage.getItem('clients')) {
-            localStorage.setItem('clients', JSON.stringify([...JSON.parse(localStorage.getItem('clients')!), client]));
-        } else {
-            localStorage.setItem('clients', JSON.stringify([client]));
-        }
-
-        this.getClients();
+        const clients: IClient[] = this.getStorageClients();
+        clients.push(client);
+        localStorage.setItem('clients', JSON.stringify(clients)); // Сохраняем список с новым клиентом
+        this.clients$.next(clients);
     }
 
     public getClients(): void {
         this.requestClients()
             .pipe(
                 takeUntil(this._subscription$),
-                map((response: UserDto) => [...response.users, ...this.getStorageClients()].map((client: IClient) => {
-                    return new ClientModel(client);
-                }))
+                map((response: UserDto) => {
+                    const serverClients: ClientModel[] = response.users.map((client: IClient) => new ClientModel(client));
+                    const deletedClients: IClient[] = this.getStorageDeletedClients();
+
+                    // Фильтруем удаленных клиентов из списка с сервера
+                    const remainingClients: ClientModel[] = serverClients.filter((serverClient) => !deletedClients.find((deletedClient) => deletedClient.phone === serverClient.phone));
+
+                    localStorage.setItem('clients', JSON.stringify(remainingClients)); // Сохраняем в локальное хранилище
+                    return remainingClients;
+                })
             )
-            .subscribe((clients) => this.clients$.next(clients));
+            .subscribe((clients: ClientModel[]) => this.clients$.next(clients));
+    }
+
+
+
+
+    public deleteClients(removedClients: ClientModel[]): void {
+        const updatedClients: ClientModel[] = this.clients$.getValue().filter((client: ClientModel) => {
+            client.selected = false;
+            return !removedClients.includes(client)
+        });
+        this.clients$.next(updatedClients);
+
+        this.getStorageDeletedClients().length > 0 ?
+            localStorage.setItem('deletedClients', JSON.stringify([...JSON.parse(localStorage.getItem('deletedClients')!), ...removedClients]))
+            :
+            localStorage.setItem('deletedClients', JSON.stringify(removedClients));
+    }
+
+
+    private getStorageDeletedClients(): ClientModel[] {
+        return localStorage.getItem('deletedClients') ? JSON.parse(localStorage.getItem('deletedClients')!) : [];
+    }
+
+
+    public editClient(currentClient: ClientModel, newClientData: IClient): void {
+        this.clients$
+            .pipe(
+                takeUntil(this._subscription$),
+                map((clients: ClientModel[]) =>
+                    clients.map((client: ClientModel) => client.phone === currentClient.phone ? { ...client, ...newClientData } : client)
+                )
+            ).subscribe((updatedClients: ClientModel[]) => {
+                this.clients$.next(updatedClients);
+                localStorage.setItem('clients', JSON.stringify(updatedClients));
+            });
     }
 
     private getStorageClients(): IClient[] {
