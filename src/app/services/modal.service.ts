@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Overlay } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ModalComponent } from '../components/UI/modal/modal.component';
 
@@ -7,18 +7,26 @@ import { ModalComponent } from '../components/UI/modal/modal.component';
     providedIn: 'root'
 })
 export class ModalService {
-    constructor(private _overlay: Overlay) {}
+    private _overlayRef!: OverlayRef;
+
+    constructor(private overlay: Overlay) {}
 
     openModal(component: any) {
-        const overlayRef = this._overlay.create();
+        this._overlayRef = this.overlay.create();
         const portal = new ComponentPortal(ModalComponent);
-        const modalComponentRef = overlayRef.attach(portal);
+        const modalComponentRef = this._overlayRef.attach(portal);
 
         const modalContentPortal = new ComponentPortal(component);
         modalComponentRef.instance.setPortal(modalContentPortal);
 
         modalComponentRef.instance.close.subscribe(() => {
-            overlayRef.dispose();
+            this.closeModal();
         });
+    }
+
+    closeModal() {
+        if (this._overlayRef) {
+            this._overlayRef.dispose();
+        }
     }
 }
