@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ModalService} from "../../services/modal.service";
+import {phoneValidator} from "./validators/phone.validator";
 
 @Component({
     selector: 'app-new-client-form',
@@ -16,9 +17,18 @@ export class NewClientFormComponent {
                 Validators.required,
                 Validators.minLength(2)
             ]),
-            surname: new FormControl('', Validators.required),
-            email: new FormControl('', Validators.required),
-            phone: new FormControl('', Validators.required)
+            surname: new FormControl('', [
+                Validators.required,
+                Validators.minLength(2)
+            ]),
+            email: new FormControl('', [
+                Validators.required,
+                Validators.email,
+            ]),
+            phone: new FormControl('', [
+                Validators.required,
+                phoneValidator
+            ])
         })
     }
 

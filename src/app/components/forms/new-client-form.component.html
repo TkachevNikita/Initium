@@ -3,7 +3,7 @@
         Новый клиент
     </h3>
     <div class="form__group">
-        <IInput formControlName="name" placeholder="Имя"/>
+        <IInput formControlName="name" [ngClass]="form.controls['name'].touched && form.controls['name'].invalid ? 'warn' : ''" placeholder="Имя"/>
         <div class="form__error" *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['required']">
             Это обязательное поле
         </div>
@@ -12,13 +12,31 @@
         </div>
     </div>
     <div class="form__group">
-        <IInput formControlName="surname" placeholder="Фамилия"/>
+        <IInput formControlName="surname" [ngClass]="form.controls['surname'].touched && form.controls['surname'].invalid ? 'warn' : ''" placeholder="Фамилия"/>
+        <div class="form__error" *ngIf="form.controls['surname'].touched && form.controls['surname'].errors?.['required']">
+            Это обязательное поле
+        </div>
+        <div class="form__error" *ngIf="form.controls['surname'].touched && form.controls['surname'].errors?.['minlength']">
+            Минимальное количество символов: 2
+        </div>
     </div>
     <div class="form__group">
-        <IInput formControlName="email" placeholder="E-mail"/>
+        <IInput formControlName="email" [ngClass]="form.controls['email'].touched && form.controls['email'].invalid ? 'warn' : ''" placeholder="E-mail"/>
+        <div class="form__error" *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['required']">
+            Это обязательное поле
+        </div>
+        <div class="form__error" *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['email']">
+            Некорректный адрес
+        </div>
     </div>
     <div class="form__group">
-        <IInput formControlName="phone" placeholder="Телефон"/>
+        <IInput formControlName="phone" [ngClass]="form.controls['phone'].touched && form.controls['phone'].invalid ? 'warn' : ''" placeholder="Телефон"/>
+        <div class="form__error" *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['required']">
+            Это обязательное поле
+        </div>
+        <div class="form__error" *ngIf="form.controls['phone'].hasError('invalidPhone')">
+            Некорректный телефон
+        </div>
     </div>
     <div class="form__actions">
         <IButton (click)="cancelModal()">Отмена</IButton>
