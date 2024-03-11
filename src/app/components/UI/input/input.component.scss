@@ -1,5 +1,12 @@
 @import "../../../../styles/constants";
 
+::ng-deep .warn {
+    label, input {
+        border-color: $warn !important;
+        color: $warn !important;
+    }
+}
+
 .input {
     position: relative;
 
@@ -26,15 +33,6 @@
         display: block;
         transition: border-color 0.3s;
         background-color: rgb(255, 255, 255);
-
-        &:not(:placeholder-shown) ~ label {
-
-        }
-
-        .warn {
-            border-color: $warn;
-            color: $warn;
-        }
 
         &:focus {
             border-color: $primary;
