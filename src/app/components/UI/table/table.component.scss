@@ -1,0 +1,59 @@
+@import "../../../../styles/constants";
+
+.container {
+    background-color: #FFFFFF;
+    padding: 10px 15px;
+    border-radius: 20px;
+}
+
+.actions {
+    padding: 0 15px;
+    display: flex;
+    gap: 15px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.start {
+    text-align: start;
+}
+
+.end {
+    text-align: end;
+}
+
+th {
+    font-size: 12px;
+    font-weight: 500;
+    color: $primary;
+}
+
+td {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+
+tr {
+    border-bottom: 1px solid rgba(245, 245, 245, 1);
+    &:hover {
+        td {
+            color: $light-primary;
+        }
+    }
+}
+
+th, td {
+    padding: 15px 25px;
+}
+
+.table__item {
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(143, 175, 255, 0.08);
+    }
+}

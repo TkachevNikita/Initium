@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="actions">
+        <icon-button (click)="openAddModal()" type="add"></icon-button>
+        <icon-button type="delete"></icon-button>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <ICheckbox></ICheckbox>
+            </th>
+            <th class="start">
+                Имя
+            </th>
+            <th class="start">
+                Фамилия
+            </th>
+            <th class="end">
+                E-mail
+            </th>
+            <th class="end">
+                Телефон
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table__item" *ngFor="let client of data$ | async">
+            <td>
+                <ICheckbox></ICheckbox>
+            </td>
+            <td class="start">
+                {{client.name}}
+            </td>
+            <td class="start">
+                {{client.surname}}
+            </td>
+            <td class="end">
+                {{client.email}}
+            </td>
+            <td class="end">
+                {{client.phone}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
