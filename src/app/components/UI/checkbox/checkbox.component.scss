@@ -17,7 +17,10 @@
     }
 
     &__selection {
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
         width: 18px;
         height: 18px;
         outline: 3px solid #DADADA;
@@ -25,14 +28,11 @@
         position: relative;
 
         &::before {
-            z-index: -1000;
+            z-index: -1;
             content: "";
             color: #fff;
             position: absolute;
             display: block;
-            top: 50%;
-            left: 50%;
-            transform: translate(-58%, -50%);
             width: 21px;
             height: 21px;
             border-radius: 3px;
