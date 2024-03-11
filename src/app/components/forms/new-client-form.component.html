@@ -40,6 +40,6 @@
     </div>
     <div class="form__actions">
         <IButton (click)="cancelModal()">Отмена</IButton>
-        <IButton [disabled]="form.invalid" variant="primary">Сохранить</IButton>
+        <IButton (click)="addClient()" [disabled]="form.invalid" variant="primary">Сохранить</IButton>
     </div>
 </form>

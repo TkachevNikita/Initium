@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ModalService} from "../../services/modal.service";
 import {phoneValidator} from "./validators/phone.validator";
+import {ClientsService} from "../../services/clients.service";
 
 @Component({
     selector: 'app-new-client-form',
@@ -11,7 +12,7 @@ import {phoneValidator} from "./validators/phone.validator";
 export class NewClientFormComponent {
     public form: FormGroup;
 
-    constructor(private _modalService: ModalService) {
+    constructor(private _modalService: ModalService, private _clientsService: ClientsService) {
         this.form = new FormGroup({
             name: new FormControl('', [
                 Validators.required,
@@ -30,6 +31,11 @@ export class NewClientFormComponent {
                 phoneValidator
             ])
         })
+    }
+
+    public addClient(): void {
+        this._clientsService.addClient(this.form.value)
+        this.cancelModal();
     }
 
     public cancelModal(): void {

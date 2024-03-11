@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ClientsService} from "../../services/clients.service";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Subject, takeUntil} from "rxjs";
 import {ClientModel} from "../../models/client.model";
 
 @Component({
@@ -8,14 +8,24 @@ import {ClientModel} from "../../models/client.model";
     templateUrl: './client-page.component.html',
     styleUrls: ['./client-page.component.scss'],
 })
-export class ClientPageComponent implements OnInit {
+export class ClientPageComponent implements OnInit, OnDestroy {
     public clients$: BehaviorSubject<ClientModel[]> = new BehaviorSubject<ClientModel[]>([]);
+    private _subscription$: Subject<void> = new Subject<void>();
+
     constructor(private _clientsService: ClientsService) { }
 
     public ngOnInit() {
-        this._clientsService.getClients()
-            .subscribe(
-                (clients: ClientModel[])  => this.clients$.next(clients)
+        this._clientsService.getClients();
+        this._clientsService.clients$
+            .pipe(
+                takeUntil(this._subscription$)
             )
+            .subscribe({
+                next: (clients: ClientModel[]) => this.clients$.next(clients)
+            });
+    }
+
+    public ngOnDestroy() {
+        this._subscription$.unsubscribe();
     }
 }
