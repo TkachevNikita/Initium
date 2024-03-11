@@ -2,7 +2,6 @@
 
 .input {
     position: relative;
-    margin: 20px 0;
 
     & label {
         position: absolute;
@@ -19,6 +18,7 @@
     }
 
     & input {
+        width: 100%;
         border: 1px solid #BBC5C9;
         border-radius: 4px;
         font-size: 16px;

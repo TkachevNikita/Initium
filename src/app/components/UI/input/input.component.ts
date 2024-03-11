@@ -19,8 +19,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
     ]
 })
 export class InputComponent implements ControlValueAccessor {
-    @Input()
-    public placeholder!: string;
+    @Input() public placeholder!: string;
     public value: string = '';
 
     private _onTouched: () => void = () => {};
