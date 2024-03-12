@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ModalService} from "../../services/modal.service";
 import {phoneValidator} from "./validators/phone.validator";
@@ -7,7 +7,8 @@ import {ClientsService} from "../../services/clients.service";
 @Component({
     selector: 'app-new-client-form',
     templateUrl: './new-client-form.component.html',
-    styleUrls: ['./new-client-form.component.scss']
+    styleUrls: ['./new-client-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewClientFormComponent implements OnInit {
     public form: FormGroup;

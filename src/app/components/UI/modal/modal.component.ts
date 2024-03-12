@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {ComponentPortal} from "@angular/cdk/portal";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {Subject} from "rxjs";
@@ -24,14 +24,15 @@ export interface ModalData {
                 animate('300ms ease-out', style({ opacity: 0, transform: 'scale(0.8)' })),
             ]),
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalComponent {
     public data$: Subject<ModalData> = new Subject<ModalData>();
     @Input() contentPortal!: ComponentPortal<any>;
     @Output() close: EventEmitter<void> = new EventEmitter<void>();
 
-    public setPortal(portal: ComponentPortal<any>) {
+    public setPortal(portal: ComponentPortal<any>): void {
         this.contentPortal = portal;
     }
 
@@ -39,7 +40,7 @@ export class ModalComponent {
         this.data$.next(data);
     }
 
-    public onClose() {
+    public onClose(): void {
         this.close.emit();
     }
 }

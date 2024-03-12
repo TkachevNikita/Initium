@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from "@angular/core";
 import {ClientsService} from "../../services/clients.service";
 import {BehaviorSubject, Subject, takeUntil} from "rxjs";
 import {ClientModel} from "../../models/client.model";
@@ -7,6 +7,7 @@ import {ClientModel} from "../../models/client.model";
     selector: 'app-contacts',
     templateUrl: './client-page.component.html',
     styleUrls: ['./client-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientPageComponent implements OnInit, OnDestroy {
     public clients$: BehaviorSubject<ClientModel[]> = new BehaviorSubject<ClientModel[]>([]);

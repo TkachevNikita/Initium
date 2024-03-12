@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {CheckboxComponent} from "../checkbox/checkbox.component";
 import {ClientModel} from "../../../models/client.model";
@@ -17,7 +17,8 @@ import {ClientsService} from "../../../services/clients.service";
         CommonModule,
         CheckboxComponent,
         IconButtonComponent
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent {
     @Input() public data$!: BehaviorSubject<ClientModel[]>;
