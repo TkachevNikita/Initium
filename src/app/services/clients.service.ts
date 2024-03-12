@@ -16,7 +16,7 @@ export class ClientsService implements OnDestroy {
     public addClient(client: ClientModel): void {
         const clients: IClient[] = this.getStorageClients();
         clients.push(client);
-        localStorage.setItem('clients', JSON.stringify(clients)); // Сохраняем список с новым клиентом
+        localStorage.setItem('clients', JSON.stringify(clients));
         this.clients$.next(clients);
     }
 
@@ -25,13 +25,13 @@ export class ClientsService implements OnDestroy {
             .pipe(
                 takeUntil(this._subscription$),
                 map((response: UserDto) => {
-                    const serverClients: ClientModel[] = response.users.map((client: IClient) => new ClientModel(client));
-                    const deletedClients: IClient[] = this.getStorageDeletedClients();
+                    let remainingClients: ClientModel[] = response.users.map((client: IClient) => new ClientModel(client));
 
-                    // Фильтруем удаленных клиентов из списка с сервера
-                    const remainingClients: ClientModel[] = serverClients.filter((serverClient) => !deletedClients.find((deletedClient) => deletedClient.phone === serverClient.phone));
+                    if (this.getStorageClients().length > 0) {
+                        remainingClients = this.getStorageClients();
+                    }
 
-                    localStorage.setItem('clients', JSON.stringify(remainingClients)); // Сохраняем в локальное хранилище
+                    localStorage.setItem('clients', JSON.stringify(remainingClients));
                     return remainingClients;
                 })
             )
@@ -47,18 +47,8 @@ export class ClientsService implements OnDestroy {
             return !removedClients.includes(client)
         });
         this.clients$.next(updatedClients);
-
-        this.getStorageDeletedClients().length > 0 ?
-            localStorage.setItem('deletedClients', JSON.stringify([...JSON.parse(localStorage.getItem('deletedClients')!), ...removedClients]))
-            :
-            localStorage.setItem('deletedClients', JSON.stringify(removedClients));
+        localStorage.setItem('clients', JSON.stringify(updatedClients));
     }
-
-
-    private getStorageDeletedClients(): ClientModel[] {
-        return localStorage.getItem('deletedClients') ? JSON.parse(localStorage.getItem('deletedClients')!) : [];
-    }
-
 
     public editClient(currentClient: ClientModel, newClientData: IClient): void {
         this.clients$
