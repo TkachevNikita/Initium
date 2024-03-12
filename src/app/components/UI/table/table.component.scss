@@ -4,6 +4,10 @@
     background-color: #FFFFFF;
     padding: 10px 15px;
     border-radius: 20px;
+    overflow: hidden;
+    max-height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
 }
 
 .actions {
@@ -12,8 +16,13 @@
     gap: 15px;
 }
 
+.table-container {
+    overflow-y: auto;
+}
+
 .table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
 }
 
@@ -56,4 +65,11 @@ th, td {
     &:hover {
         background-color: rgba(143, 175, 255, 0.08);
     }
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1000;
 }

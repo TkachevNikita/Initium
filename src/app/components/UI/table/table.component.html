@@ -3,45 +3,46 @@
         <icon-button (click)="openAddModal()" type="add"></icon-button>
         <icon-button (click)="openDeleteModal()" type="delete"></icon-button>
     </div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>
-                <ICheckbox></ICheckbox>
-            </th>
-            <th class="start">
-                Имя
-            </th>
-            <th class="start">
-                Фамилия
-            </th>
-            <th class="end">
-                E-mail
-            </th>
-            <th class="end">
-                Телефон
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="table__item" *ngFor="let client of data$ | async">
-            <td>
-                <ICheckbox (change)="client.selected = true" [checked]="client.selected!"></ICheckbox>
-            </td>
-            <td (click)="openEditModal(client)" class="start">
-                {{client.name}}
-            </td>
-            <td (click)="openEditModal(client)" class="start">
-                {{client.surname}}
-            </td>
-            <td (click)="openEditModal(client)" class="end">
-                {{client.email}}
-            </td>
-            <td (click)="openEditModal(client)" class="end">
-                {{client.phone}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    <ICheckbox [indeterminate]="true" (change)="toggleAll()"></ICheckbox>
+                </th>
+                <th class="start">
+                    Имя
+                </th>
+                <th class="start">
+                    Фамилия
+                </th>
+                <th class="end">
+                    E-mail
+                </th>
+                <th class="end">
+                    Телефон
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table__item" *ngFor="let client of data$ | async">
+                <td>
+                    <ICheckbox (change)="client.selected = !client.selected" [checked]="client.selected!"></ICheckbox>
+                </td>
+                <td (click)="openEditModal(client)" class="start">
+                    {{ client.name }}
+                </td>
+                <td (click)="openEditModal(client)" class="start">
+                    {{ client.surname }}
+                </td>
+                <td (click)="openEditModal(client)" class="end">
+                    {{ client.email }}
+                </td>
+                <td (click)="openEditModal(client)" class="end">
+                    {{ client.phone }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-
