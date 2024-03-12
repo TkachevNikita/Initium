@@ -1,9 +1,12 @@
 <label class="checkbox">
     <input type="checkbox" [checked]="checked" (change)="onCheckboxChange($event)" (blur)="onTouched()">
-    <span class="checkbox__selection">
+    <span *ngIf="!indeterminate" class="checkbox__selection">
         <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M5 11.0001L0 6.0001L1.4 4.6001L5 8.2001L12.6 0.600098L14 2.0001L5 11.0001V11.0001Z" fill="transparent"/>
         </svg>
+    </span>
+    <span *ngIf="indeterminate" class="checkbox__selection">
+        <span class="checkbox__selection--indeterminate"></span>
     </span>
     <span class="checkbox__text">
         <ng-content></ng-content>

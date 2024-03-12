@@ -9,10 +9,16 @@
 
         &:checked + .checkbox__selection:before,
         &:checked + .checkbox__selection,
-        &:checked + .checkbox__selection svg path {
+        &:checked + .checkbox__selection svg path,
+        &:checked + .checkbox__selection--indeterminate {
             opacity: 1;
             outline: none;
             fill: #FFFFFF;
+        }
+
+        &:checked + .checkbox__selection .checkbox__selection--indeterminate {
+            opacity: 1;
+            background-color: white;
         }
     }
 
@@ -26,6 +32,16 @@
         outline: 3px solid #DADADA;
         border-radius: 3px;
         position: relative;
+
+        &--indeterminate {
+            position: absolute;
+            top: 50%;
+            left: 23%;
+            height: 2px;
+            width: 55%;
+            background-color: black;
+            opacity: 0;
+        }
 
         &::before {
             z-index: -1;
