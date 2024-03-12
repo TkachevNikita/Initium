@@ -1,4 +1,4 @@
-<div class="modal">
+<div class="modal" (click)="onOverlayClick($event)">
     <div @modalAnimation class="modal__content">
         <ng-container [cdkPortalOutlet]="contentPortal"></ng-container>
     </div>

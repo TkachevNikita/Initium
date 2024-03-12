@@ -25,28 +25,28 @@ export class CheckboxComponent implements ControlValueAccessor {
     private _onTouched: () => void = () => {};
     public onChange: (value: boolean) => void = () => {};
 
-    writeValue(value: any): void {
+    public writeValue(value: boolean): void {
         this.checked = value;
     }
 
-    registerOnChange(fn: any): void {
+    public registerOnChange(fn: (value: boolean) => void): void {
         this.onChange = fn;
     }
 
-    registerOnTouched(fn: any): void {
+    public registerOnTouched(fn: () => void): void {
         this._onTouched = fn;
     }
 
-    setChecked(value: boolean): void {
+    public setChecked(value: boolean): void {
         this.checked = value;
         this.onChange(this.checked);
     }
 
-    onCheckboxChange(event: any): void {
+    public onCheckboxChange(event: any): void {
         this.setChecked(event.target.checked);
     }
 
-    onTouched(): void {
+    public onTouched(): void {
         this._onTouched();
     }
 

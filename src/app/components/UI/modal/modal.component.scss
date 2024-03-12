@@ -12,6 +12,7 @@
 }
 
 .modal__content {
+    z-index: 10000;
     background-color: #fff;
     border-radius: 20px;
     padding: 40px;

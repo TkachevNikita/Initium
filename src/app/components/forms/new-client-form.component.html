@@ -30,7 +30,11 @@
         </div>
     </div>
     <div class="form__group">
-        <IInput formControlName="phone" [ngClass]="form.controls['phone'].touched && form.controls['phone'].invalid ? 'warn' : ''" placeholder="Телефон"/>
+        <IInput
+            formControlName="phone"
+            [ngClass]="form.controls['phone'].touched && form.controls['phone'].invalid ? 'warn' : ''"
+            placeholder="Телефон"
+        />
         <div class="form__error" *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['required']">
             Это обязательное поле
         </div>

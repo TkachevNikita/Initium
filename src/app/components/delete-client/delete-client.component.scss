@@ -1,0 +1,14 @@
+.delete {
+    &__title {
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 30px;
+    }
+
+    &__actions {
+        margin-top: 60px;
+        float: right;
+        display: flex;
+        gap: 5px;
+    }
+}

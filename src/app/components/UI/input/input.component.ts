@@ -25,11 +25,11 @@ export class InputComponent implements ControlValueAccessor {
     private _onTouched: () => void = () => {};
     private _onChange: (value: string) => void = () => {};
 
-    public registerOnChange(fn: any): void {
+    public registerOnChange(fn: (value: string) => void): void {
         this._onChange = fn;
     }
 
-    public registerOnTouched(fn: any): void {
+    public registerOnTouched(fn: () => void): void {
         this._onTouched = fn;
     }
 

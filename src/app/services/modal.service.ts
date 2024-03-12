@@ -2,7 +2,7 @@ import { Injectable, OnDestroy} from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import {ModalComponent, ModalData} from '../components/UI/modal/modal.component';
-import {BehaviorSubject, Subject} from "rxjs";
+import {BehaviorSubject, Subject, takeUntil} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +22,7 @@ export class ModalService implements OnDestroy {
         modalComponentRef.instance.setPortal(modalContentPortal);
         this.setFormData(data);
 
-        modalComponentRef.instance.close.subscribe(() => {
+        modalComponentRef.instance.close.pipe(takeUntil(this._subscription$)).subscribe(() => {
             this.closeModal();
         });
     }

@@ -1,0 +1,13 @@
+<div class="delete">
+    <h3 class="delete__title">
+        Удаление строк
+    </h3>
+    <span class="delete__message">
+        Удалить выбранные строки ({{deleteCount}})?
+    </span>
+    <div class="delete__actions">
+        <IButton (click)="cancelModal()">Отмена</IButton>
+        <IButton (click)="deleteClients()" variant="primary">Удалить</IButton>
+    </div>
+</div>
+

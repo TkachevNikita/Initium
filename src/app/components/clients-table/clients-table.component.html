@@ -8,7 +8,7 @@
             <thead>
             <tr>
                 <th>
-                    <ICheckbox [indeterminate]="true" (change)="toggleAll()"></ICheckbox>
+                    <ICheckbox [indeterminate]="true" [checked]="isAnyChecked()" (change)="toggleAll()"></ICheckbox>
                 </th>
                 <th class="start">
                     Имя

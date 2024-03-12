@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ButtonComponent} from "./components/UI/button/button.component";
 import {ClientPageComponent} from "./pages/client/client-page.component";
-import {TableComponent} from "./components/UI/table/table.component";
+import {ClientsTableComponent} from "./components/clients-table/clients-table.component";
 import {ClientsService} from "./services/clients.service";
 import {HttpClientModule} from "@angular/common/http";
 import {ModalComponent} from "./components/UI/modal/modal.component";
@@ -14,19 +14,21 @@ import {NewClientFormComponent} from "./components/forms/new-client-form.compone
 import {InputComponent} from "./components/UI/input/input.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {DeleteClientComponent} from "./components/delete-client/delete-client.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         ClientPageComponent,
         ModalComponent,
-        NewClientFormComponent
+        NewClientFormComponent,
+        DeleteClientComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         ButtonComponent,
-        TableComponent,
+        ClientsTableComponent,
         HttpClientModule,
         PortalModule,
         InputComponent,

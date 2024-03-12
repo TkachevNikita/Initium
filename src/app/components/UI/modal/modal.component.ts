@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {ComponentPortal} from "@angular/cdk/portal";
 import {animate, style, transition, trigger} from "@angular/animations";
-import {Subject} from "rxjs";
 import {ClientModel} from "../../../models/client.model";
 
 export interface ModalData {
     title: string;
     type: string;
     client?: ClientModel
+    selectedClients?: ClientModel[]
 }
 
 @Component({
@@ -28,19 +28,24 @@ export interface ModalData {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalComponent {
-    public data$: Subject<ModalData> = new Subject<ModalData>();
     @Input() contentPortal!: ComponentPortal<any>;
     @Output() close: EventEmitter<void> = new EventEmitter<void>();
+
+    @HostListener('document:keydown.escape', ['$event'])
+    public onEscKeydown(): void {
+        this.onClose();
+    }
 
     public setPortal(portal: ComponentPortal<any>): void {
         this.contentPortal = portal;
     }
 
-    public setData(data: ModalData): void {
-        this.data$.next(data);
+    public onOverlayClick(event: MouseEvent): void {
+        if (event.target === event.currentTarget) {
+            this.onClose();
+        }
     }
-
-    public onClose(): void {
+    private onClose(): void {
         this.close.emit();
     }
 }
