@@ -27,7 +27,7 @@ export class ClientsService implements OnDestroy {
                 map((response: UserDto) => {
                     let remainingClients: ClientModel[] = response.users.map((client: IClient) => new ClientModel(client));
 
-                    if (this.getStorageClients().length > 0) {
+                    if (localStorage.getItem('clients')) {
                         remainingClients = this.getStorageClients();
                     }
 
@@ -37,9 +37,6 @@ export class ClientsService implements OnDestroy {
             )
             .subscribe((clients: ClientModel[]) => this.clients$.next(clients));
     }
-
-
-
 
     public deleteClients(removedClients: ClientModel[]): void {
         const updatedClients: ClientModel[] = this.clients$.getValue().filter((client: ClientModel) => {
